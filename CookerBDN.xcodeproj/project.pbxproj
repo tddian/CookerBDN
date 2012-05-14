@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E907BFF8156154FB0091CA57 /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFF7156154FB0091CA57 /* icon2.png */; };
+		E907BFFB156155170091CA57 /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFFA156155170091CA57 /* icon2.png */; };
+		E907BFFD156155A10091CA57 /* menu_v1.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFFC156155A10091CA57 /* menu_v1.png */; };
+		E907BFFF156155C00091CA57 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFFE156155C00091CA57 /* Default@2x.png */; };
+		E907C001156156020091CA57 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E907C000156156020091CA57 /* GameKit.framework */; };
 		E93466A415614D5A001A9A2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93466A315614D5A001A9A2A /* UIKit.framework */; };
 		E93466A615614D5A001A9A2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93466A515614D5A001A9A2A /* Foundation.framework */; };
 		E93466A815614D5A001A9A2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93466A715614D5A001A9A2A /* CoreGraphics.framework */; };
@@ -18,6 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E907BFF7156154FB0091CA57 /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon2.png; path = ../../../Dropbox/egg/icon2.png; sourceTree = "<group>"; };
+		E907BFFA156155170091CA57 /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
+		E907BFFC156155A10091CA57 /* menu_v1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_v1.png; path = ../../../Dropbox/egg/menu/menu_v1.png; sourceTree = "<group>"; };
+		E907BFFE156155C00091CA57 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E907C000156156020091CA57 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E934669F15614D5A001A9A2A /* CookerBDN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookerBDN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93466A315614D5A001A9A2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E93466A515614D5A001A9A2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E907C001156156020091CA57 /* GameKit.framework in Frameworks */,
 				E93466A415614D5A001A9A2A /* UIKit.framework in Frameworks */,
 				E93466A615614D5A001A9A2A /* Foundation.framework in Frameworks */,
 				E93466A815614D5A001A9A2A /* CoreGraphics.framework in Frameworks */,
@@ -50,9 +61,14 @@
 		E934669415614D59001A9A2A = {
 			isa = PBXGroup;
 			children = (
+				E907C000156156020091CA57 /* GameKit.framework */,
+				E907BFFE156155C00091CA57 /* Default@2x.png */,
+				E907BFFA156155170091CA57 /* icon2.png */,
 				E93466A915614D5A001A9A2A /* CookerBDN */,
 				E93466A215614D5A001A9A2A /* Frameworks */,
 				E93466A015614D5A001A9A2A /* Products */,
+				E907BFF7156154FB0091CA57 /* icon2.png */,
+				E907BFFC156155A10091CA57 /* menu_v1.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +166,10 @@
 			files = (
 				E93466AE15614D5A001A9A2A /* InfoPlist.strings in Resources */,
 				E93466B715614D5A001A9A2A /* MainStoryboard.storyboard in Resources */,
+				E907BFF8156154FB0091CA57 /* icon2.png in Resources */,
+				E907BFFB156155170091CA57 /* icon2.png in Resources */,
+				E907BFFD156155A10091CA57 /* menu_v1.png in Resources */,
+				E907BFFF156155C00091CA57 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +292,7 @@
 				E93466BF15614D5A001A9A2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
