@@ -24,7 +24,7 @@
 	
 	// game status
 	_gameMode= modeStart;
-	_severOrClient= sessionServer;
+	_severOrClient= nServer;
 	
 	// 
 	UIAccelerometer *myAccel = [UIAccelerometer sharedAccelerometer];
@@ -33,13 +33,14 @@
 	
 	// networking
 	_gameSession= nil;
-	_gameUniqueID = [self generateCFUUID];
+	_gameUUID = [self generateCFUUID];
 	//	_gamePacketNumber = 0;
 	_gamePeerId = nil;
 	
 	// debugger
-	testLabel.text = [NSString stringWithFormat:@"CFUUID:%d",_gameUniqueID];
-	NSLog([NSString stringWithFormat:@"CFUUID:%d",_gameUniqueID]);
+	testLabel.text = [NSString stringWithFormat:@"CFUUID:%d",_gameUUID];
+	NSLog([NSString stringWithFormat:@"CFUUID:%d",_gameUUID]);
+	
 	
 	// gameLoop
 	[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
@@ -84,7 +85,7 @@
 	NSLog(text);
 	
 	if ([text isEqualToString:@""]) {
-		_nameTextField.text = @"ARE YOU SPACES?";
+		_nameTextField.text = @"SPACES?";
 	} else {
 		GKPeerPickerController	*picker;
 		
@@ -102,6 +103,7 @@
 	
 	// Remember the current peer.
 	self._gamePeerId = peerID;// copy
+	NSLog(@"peerID: %p", peerID);
 	
 	// Make sure we have a reference to the game session and it is set up
 	self._gameSession = session; // retain
@@ -205,9 +207,35 @@
 	
 	// header: [packetNumber][dataType]
 	int packetNumber	= ptrHeader[0];
-	int dataType		= ptrHeader[1];
+	DataType dataType	= ptrHeader[1];
 	
-	
+	switch (dataType) {
+		case DATA_DECIDE_SERVER:
+		{
+			NSLog(@"RECEIVE UUID");
+
+			int peerUUID = ptrHeader[2];
+			if (peerUUID > _gameUUID) {
+				self._severOrClient = nClient;
+				NSLog(@"\tI am client");
+			} else {
+				self._severOrClient = nServer;
+				NSLog(@"\tI am server");
+			}
+			
+			// after 1 second fire method to hide the label
+			//			[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(hideGameLabel:) userInfo:nil repeats:NO];
+		}	
+			break;
+		case DATA_GAME_EGG:
+			break;
+		case DATA_GAME_GRADE:
+			break;
+		case DATA_GAME_FLY:
+			break;
+		default:
+			break;
+	}
 }
 
 - (void)sendData:(GKSession *)session withDataType:(int)dataType withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend {
@@ -240,7 +268,7 @@
 
 # pragma mark - ALL About the GAME Algorithm :3
 //  
-// Game loop runs at regular interval to update game based on current game state
+// Game loop runs at regular interval to update game based on current game mode
 //  
 - (void)gameLoop {
 	switch (self._gameMode) {
@@ -248,8 +276,11 @@
 		case modePeerPicker:
 			break;
 		case modeDecideServer:
-			[self sendData:self._gameSession withDataType:DATA_DECIDE_SERVER withData:&_gameUniqueID ofLength:sizeof(_gameUniqueID) reliable:YES];
+		{
+			NSLog(@"SEND UUID");
+			[self sendData:self._gameSession withDataType:DATA_DECIDE_SERVER withData:&_gameUUID ofLength:sizeof(&_gameUUID) reliable:YES];
 			self._gameMode = modeGame; // make us in modeDecideServer state for one loop
+		}
 			break;
 		case modeGame:
 			// in the game
@@ -280,6 +311,8 @@
 	rtn = CFStringGetIntValue(uuidStr);
 	
 	// debugger
+	NSLog(@"sizeof(&_gameUUID) = %lu",sizeof(&_gameUUID));
+	NSLog(@"sizeof(_gameUUID)) = %lu",sizeof(_gameUUID));
 	NSLog([NSString stringWithFormat:@"%@", uuidStr]);
 	NSLog([NSString stringWithFormat:@"CFUUID:%d",rtn]);
 	

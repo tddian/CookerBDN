@@ -12,27 +12,26 @@
 
 typedef struct {
 	
-} egg;
+} Egg;
 
 typedef enum {
-	sessionServer,
-	sessionClient
-} networkCharacter;
+	nServer,
+	nClient
+} NetworkCharacter;
 
 typedef enum {
 	modeStart,
 	modePeerPicker,
 	modeDecideServer,
 	modeGame,
-} gameModes;
+} GameModes;
 
 typedef enum {
-	DATA_ACK,					// no packet
 	DATA_DECIDE_SERVER,				// decide who is going to be the server
 	DATA_GAME_EGG,
-	DATA_GAME_POINT,
+	DATA_GAME_GRADE,
 	DATA_GAME_FLY,
-} dataType;
+} DataType;
 
 // GameKit Session ID for our app
 #define mySessionID @"CookerBDN"
@@ -54,7 +53,7 @@ typedef enum {
 	
 	// networking
 	GKSession		*_gameSession;
-	int				_gameUniqueID;
+	int				_gameUUID;
 //	int				_gamePacketNumber;
 	NSString		*_gamePeerId;
 //  NSDate			*lastHeartbeatDate;
