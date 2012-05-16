@@ -7,12 +7,14 @@
 //  
 
 #import "ViewController.h"
+//#import "SpeakHereController.mm"
+
 
 # pragma mark -
 @implementation ViewController
 
 # pragma mark - Variables
-@synthesize _gameMode, _severOrClient, _gameSession, _gamePeerId, _connectionAlert;
+@synthesize _gameMode, _severOrClient, _gameSession, _gamePeerId, _connectionAlert, audioRecorder, audioPlayer, recordedData, avRecorderTimer, settings, filePath;
 
 
 # pragma mark - Methods -
@@ -21,6 +23,17 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	
+	// initialize
+	isBurn		= NO;
+	isFly		= NO;
+	isNewEgg	= NO;
+	
+	recordedAudioNeedSave = NO;
+	accumulatePower = 0;
+	
+	[self initialParameter];
+	self.avRecorderTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(audioRecorderTimerDetecter:) userInfo:nil repeats:YES];
 	
 	// game status
 	_gameMode= modeStart;
@@ -39,8 +52,10 @@
 	
 	// debugger
 	testLabel.text = [NSString stringWithFormat:@"CFUUID:%d",_gameUUID];
-	NSLog([NSString stringWithFormat:@"CFUUID:%d",_gameUUID]);
+	NSLog(@"CFUUID:%d",_gameUUID);
 	
+	
+//	speak = [[SpeakHereController alloc] init];
 	
 	// gameLoop
 	[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(gameLoop) userInfo:nil repeats:YES];
@@ -71,18 +86,23 @@
 	[super dealloc];
 }
 
-# pragma mark - Peer Picker
+# pragma mark - TEMP BUTTON TESTER
 
 - (IBAction)tempButton:(id)sender {
 	[self startPeerPicker];
 }
+
+
+
+# pragma mark - Peer Picker
+
 
 - (void)startPeerPicker{
 	
 	// (Dian:) trim the spaces at the head and tail.
 	NSString *text = [_nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
-	NSLog(text);
+	NSLog(@"%@", text);
 	
 	if ([text isEqualToString:@""]) {
 		_nameTextField.text = @"SPACES?";
@@ -92,6 +112,7 @@
 		self._gameMode = modePeerPicker;			// we're going to do Multiplayer!
 		
 		picker = [[GKPeerPickerController alloc] init]; // note: picker is released in various picker delegate methods when picker use is done.
+//		[picker setConnectionTypesMask:GKPeerPickerConnectionTypeOnline];
 		picker.delegate = self;
 		[picker show]; // show the Peer Picker
 	}
@@ -120,11 +141,11 @@
 	
 }
 
-/*
+
  - (void)peerPickerController:(GKPeerPickerController *)picker didSelectConnectionType:(GKPeerPickerConnectionType)type{
  
  }
- */
+ 
 
 - (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type{
 	
@@ -200,6 +221,8 @@
  */
 - (void)receiveData:(NSData *)packet fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context { 
 	
+	NSLog(@"receive packet length %d", [packet length]);
+	
 	static int lastPacketNumber = -1;
 	
 	unsigned char *ptrPacket = (unsigned char *)[packet bytes];
@@ -208,6 +231,11 @@
 	// header: [packetNumber][dataType]
 	int packetNumber	= ptrHeader[0];
 	DataType dataType	= ptrHeader[1];
+	
+	char *pointer = (char*)&ptrHeader[2];
+	
+	NSData *data		= [NSData dataWithBytes:pointer length:[packet length]-8];
+	NSLog(@"%p, %d", pointer, [packet length]-8);
 	
 	switch (dataType) {
 		case DATA_DECIDE_SERVER:
@@ -228,6 +256,15 @@
 		}	
 			break;
 		case DATA_GAME_EGG:
+		{
+			NSLog(@"RECEIVE AN EGG");
+		
+//			[data retain];
+//			[self play:data];
+			audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:nil];
+			[audioPlayer play];
+
+		}
 			break;
 		case DATA_GAME_GRADE:
 			break;
@@ -239,6 +276,8 @@
 }
 
 - (void)sendData:(GKSession *)session withDataType:(int)dataType withData:(void *)data ofLength:(int)length reliable:(BOOL)howtosend {
+	
+	NSLog(@"send: length %d", length);
 	
 	// static: the packet we'll send is resued
 	static int packetNumber = 0;
@@ -291,8 +330,160 @@
 }
 
 # pragma mark - Utility Methods
-- (int)generateCFUUID{
+
+- (void)audioRecorderSave{
 	
+	NSLog(@"stop recording in audioRecorderSave");
+	
+	recordedAudioNeedSave = YES;
+	[self.audioRecorder stop];
+
+}
+
+
+- (IBAction)burn:(id)sender {
+	isBurn = !isBurn;
+	NSLog(@"isBurn? %d, isFly? %d, isNewEgg? %d, isrecording? %d", isBurn, isFly, isNewEgg, self.audioRecorder.recording);
+
+//	recordedAudioNeedSave = YES;
+	
+	if(isBurn){
+		accumulatePower = 0;
+		[self audioRecorderStart:YES];
+	}
+	else
+		[self audioRecorderSave];
+}
+
+- (IBAction)fly:(id)sender {
+	isFly = !isFly;
+	NSLog(@"isBurn? %d, isFly? %d, isNewEgg? %d, isrecording? %d", isBurn, isFly, isNewEgg, self.audioRecorder.recording);
+
+	if (isFly)
+		[self audioRecorderStart:NO];
+	else if (!isBurn)
+		[self.audioRecorder stop];
+}
+
+- (IBAction)newegg:(id)sender {
+	isNewEgg = !isNewEgg;
+	NSLog(@"isBurn? %d, isFly? %d, isNewEgg? %d, isrecording? %d", isBurn, isFly, isNewEgg, self.audioRecorder.recording);
+
+	if(isNewEgg)
+		[self audioRecorderStart:NO];
+	else if (!isBurn)
+		[self.audioRecorder stop];
+}
+
+
+- (void)audioRecorderStart:(BOOL)forceRestart{
+	
+	BOOL ing = audioRecorder.recording;
+	if(!ing)
+	{
+		while (![self.audioRecorder prepareToRecord]){
+		}
+		while (![self.audioRecorder record]){
+			NSLog(@"NO!");
+		}
+		NSLog(@"Start recording");
+	} else if( forceRestart && ing ){
+		
+		[self.audioRecorder stop];
+	}
+
+}
+- (void)audioRecorderTimerDetecter:(NSTimer *)timer {
+	
+	static double lpResult = 0;
+	static const double ALPHA = 0.05;
+	
+	if(self.audioRecorder && self.audioRecorder.recording)
+	{
+		[self.audioRecorder updateMeters];
+		
+		float powerDB = [self.audioRecorder peakPowerForChannel:0];
+		double power = pow(10, (0.05 * powerDB));
+
+//		NSLog(@"%f", power);
+		
+		if (isBurn){
+			accumulatePower += 10 * power;
+			NSLog(@"POWER!!!!! %f %%", accumulatePower/100);
+		}
+		if (isFly) {
+			lpResult = ALPHA * power + (1.0 - ALPHA) * lpResult;	
+			if (lpResult > 0.8) {
+				isFly = NO;
+				lpResult = 0;
+				NSLog(@"blowing the fly!!!");
+			}
+
+		}
+		if (isNewEgg) {
+			if (powerDB == 0.0)
+			{
+				isNewEgg = NO;
+				NSLog(@"break the shell!");
+			}
+		}
+	}
+}
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
+	
+//	needSave = YES;
+	NSLog(@"stop finish");
+	
+	if (recordedAudioNeedSave) {
+//		NSLog(@"save recorded audio in file");
+		
+		NSString *file = [self.audioRecorder.url path];
+		
+		self.recordedData = [NSData dataWithContentsOfFile:file options: 0 error:nil];
+		
+//		NSLog(@"isBurn? %d, isFly? %d, isNewEgg? %d, isrecording? %d", isBurn, isFly, isNewEgg, self.audioRecorder.recording);
+		
+		//	[self.audioRecorder deleteRecording];
+		
+		//	// RESTART the recorder if isFly || isNewEgg
+		//	if (isFly||isNewEgg) {
+		//		[self audioRecorderStart:NO];
+		//	}
+		
+		NSLog(@"recorded length: %d", [recordedData length]);
+		
+		NSUInteger len = [recordedData length];
+		Byte *byteData = (Byte*)malloc(len);
+		memcpy(byteData, [recordedData bytes], len);
+		
+		recordedAudioNeedSave = NO;
+		//	[self sendData:self._gameSession withDataType:DATA_GAME_EGG withData:byteData ofLength:[recordedData length] reliable:NO];
+	}
+		
+	if (isFly||isNewEgg) {
+		[self audioRecorderStart:NO];
+	}
+}
+
+- (void)play:(NSData *)audioData{
+//	NSString *file = [audioRecorder.url path];
+	
+//	NSLog(@"Play! : %@", file);
+	
+	
+//	audioData = [NSData dataWithContentsOfFile:file options: 0 error:nil];
+	
+	audioPlayer = [[AVAudioPlayer alloc] initWithData:audioData error:nil];
+	
+	
+	//	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioRecorder.url error:nil];
+	
+	//	[audioPlayer retain];
+	[audioPlayer play];
+}
+
+- (int)generateCFUUID{
 	//  CFUUID objects are used by plug-ins to uniquely identify types, interfaces, and factories. When creating a new type, host developers must generate UUIDs to identify the type as well as its interfaces and factories.
 	//  UUIDs (Universally Unique Identifiers), also known as GUIDs (Globally Unique Identifiers) or IIDs (Interface Identifiers), are 128-bit values guaranteed to be unique. A UUID is made unique over both space and time by combining a value unique to the computer on which it was generated—usually the Ethernet hardware address—and a value representing the number of 100-nanosecond intervals since October 15, 1582 at 00:00:00.
 	
@@ -311,15 +502,34 @@
 	rtn = CFStringGetIntValue(uuidStr);
 	
 	// debugger
-	NSLog(@"sizeof(&_gameUUID) = %lu",sizeof(&_gameUUID));
-	NSLog(@"sizeof(_gameUUID)) = %lu",sizeof(_gameUUID));
-	NSLog([NSString stringWithFormat:@"%@", uuidStr]);
-	NSLog([NSString stringWithFormat:@"CFUUID:%d",rtn]);
+//	NSLog(@"sizeof(&_gameUUID) = %lu",sizeof(&_gameUUID));
+//	NSLog(@"sizeof(_gameUUID)) = %lu",sizeof(_gameUUID));
+	NSLog(@"%@", uuidStr);
+	NSLog(@"CFUUID:%d",rtn);
 	
 	CFRelease(uuidStr);
 	CFRelease(uuid);
 	
 	return rtn;
+}
+
+- (void)initialParameter{
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+	self.filePath = [documentsDirectory stringByAppendingPathComponent:@"audioFile.caf"];  // Where ext is the audio format extension you have recorded your sound
+	
+	
+	self.settings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 44100.0], AVSampleRateKey, [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey, [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey, [NSNumber numberWithInt: AVAudioQualityMax], AVEncoderAudioQualityKey, nil];
+	//  	NSError *error;
+	NSLog(@"recorde! : %@", filePath);
+	
+	self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:filePath] settings:settings error:nil];
+
+	self.audioRecorder.meteringEnabled = YES;
+	
+	self.audioRecorder.delegate = self;
+
 }
 
 @end

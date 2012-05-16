@@ -12,11 +12,6 @@
 		E907BFFD156155A10091CA57 /* menu_v1.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFFC156155A10091CA57 /* menu_v1.png */; };
 		E907BFFF156155C00091CA57 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E907BFFE156155C00091CA57 /* Default@2x.png */; };
 		E907C001156156020091CA57 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E907C000156156020091CA57 /* GameKit.framework */; };
-		E90E5BC61561A6DF003C87E2 /* AQLevelMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90E5BC11561A6DF003C87E2 /* AQLevelMeter.mm */; };
-		E90E5BC71561A6DF003C87E2 /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = E90E5BC31561A6DF003C87E2 /* LevelMeter.m */; };
-		E90E5BD01561A6F0003C87E2 /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90E5BCB1561A6F0003C87E2 /* AQPlayer.mm */; };
-		E90E5BD11561A6F0003C87E2 /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90E5BCD1561A6F0003C87E2 /* AQRecorder.mm */; };
-		E90E5BD21561A6F0003C87E2 /* MeterTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90E5BCE1561A6F0003C87E2 /* MeterTable.cpp */; };
 		E90E5BD41561A76A003C87E2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90E5BD31561A76A003C87E2 /* AudioToolbox.framework */; };
 		E93466A415614D5A001A9A2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93466A315614D5A001A9A2A /* UIKit.framework */; };
 		E93466A615614D5A001A9A2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93466A515614D5A001A9A2A /* Foundation.framework */; };
@@ -26,10 +21,8 @@
 		E93466B415614D5A001A9A2A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E93466B315614D5A001A9A2A /* AppDelegate.m */; };
 		E93466B715614D5A001A9A2A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E93466B515614D5A001A9A2A /* MainStoryboard.storyboard */; };
 		E93466BA15614D5A001A9A2A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93466B915614D5A001A9A2A /* ViewController.m */; };
-		E9776DCF1561B2D10032682D /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9776DC81561B2D10032682D /* CADebugMacros.cpp */; };
-		E9776DD01561B2D10032682D /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9776DCB1561B2D10032682D /* CAStreamBasicDescription.cpp */; };
-		E9776DD11561B2D10032682D /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9776DCD1561B2D10032682D /* CAXException.cpp */; };
 		E9776DD41561B3710032682D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9776DD31561B3710032682D /* CoreFoundation.framework */; };
+		E9B91C551563557E006602D3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B91C541563557E006602D3 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,16 +31,6 @@
 		E907BFFC156155A10091CA57 /* menu_v1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_v1.png; path = ../../../Dropbox/egg/menu/menu_v1.png; sourceTree = "<group>"; };
 		E907BFFE156155C00091CA57 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E907C000156156020091CA57 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		E90E5BC01561A6DF003C87E2 /* AQLevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQLevelMeter.h; sourceTree = "<group>"; };
-		E90E5BC11561A6DF003C87E2 /* AQLevelMeter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQLevelMeter.mm; sourceTree = "<group>"; };
-		E90E5BC21561A6DF003C87E2 /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
-		E90E5BC31561A6DF003C87E2 /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
-		E90E5BCA1561A6F0003C87E2 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
-		E90E5BCB1561A6F0003C87E2 /* AQPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQPlayer.mm; sourceTree = "<group>"; };
-		E90E5BCC1561A6F0003C87E2 /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
-		E90E5BCD1561A6F0003C87E2 /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
-		E90E5BCE1561A6F0003C87E2 /* MeterTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeterTable.cpp; sourceTree = "<group>"; };
-		E90E5BCF1561A6F0003C87E2 /* MeterTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeterTable.h; sourceTree = "<group>"; };
 		E90E5BD31561A76A003C87E2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E934669F15614D5A001A9A2A /* CookerBDN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookerBDN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93466A315614D5A001A9A2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -62,14 +45,8 @@
 		E93466B615614D5A001A9A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E93466B815614D5A001A9A2A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E93466B915614D5A001A9A2A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E9776DC81561B2D10032682D /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
-		E9776DC91561B2D10032682D /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
-		E9776DCA1561B2D10032682D /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
-		E9776DCB1561B2D10032682D /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
-		E9776DCC1561B2D10032682D /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
-		E9776DCD1561B2D10032682D /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
-		E9776DCE1561B2D10032682D /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		E9776DD31561B3710032682D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E9B91C541563557E006602D3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B91C551563557E006602D3 /* AVFoundation.framework in Frameworks */,
 				E9776DD41561B3710032682D /* CoreFoundation.framework in Frameworks */,
 				E90E5BD41561A76A003C87E2 /* AudioToolbox.framework in Frameworks */,
 				E907C001156156020091CA57 /* GameKit.framework in Frameworks */,
@@ -89,28 +67,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E90E5BD51561A786003C87E2 /* Voice */ = {
-			isa = PBXGroup;
-			children = (
-				E90E5BC01561A6DF003C87E2 /* AQLevelMeter.h */,
-				E90E5BCA1561A6F0003C87E2 /* AQPlayer.h */,
-				E90E5BCB1561A6F0003C87E2 /* AQPlayer.mm */,
-				E90E5BCC1561A6F0003C87E2 /* AQRecorder.h */,
-				E90E5BCD1561A6F0003C87E2 /* AQRecorder.mm */,
-				E90E5BCE1561A6F0003C87E2 /* MeterTable.cpp */,
-				E90E5BCF1561A6F0003C87E2 /* MeterTable.h */,
-				E90E5BC11561A6DF003C87E2 /* AQLevelMeter.mm */,
-				E90E5BC21561A6DF003C87E2 /* LevelMeter.h */,
-				E90E5BC31561A6DF003C87E2 /* LevelMeter.m */,
-			);
-			name = Voice;
-			sourceTree = "<group>";
-		};
 		E934669415614D59001A9A2A = {
 			isa = PBXGroup;
 			children = (
-				E9776DD31561B3710032682D /* CoreFoundation.framework */,
-				E90E5BD31561A76A003C87E2 /* AudioToolbox.framework */,
 				E907BFFE156155C00091CA57 /* Default@2x.png */,
 				E907BFFA156155170091CA57 /* icon2.png */,
 				E93466A915614D5A001A9A2A /* CookerBDN */,
@@ -132,6 +91,9 @@
 		E93466A215614D5A001A9A2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9B91C541563557E006602D3 /* AVFoundation.framework */,
+				E9776DD31561B3710032682D /* CoreFoundation.framework */,
+				E90E5BD31561A76A003C87E2 /* AudioToolbox.framework */,
 				E907C000156156020091CA57 /* GameKit.framework */,
 				E93466A315614D5A001A9A2A /* UIKit.framework */,
 				E93466A515614D5A001A9A2A /* Foundation.framework */,
@@ -144,8 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				E93466B215614D5A001A9A2A /* AppDelegate.h */,
-				E9776DC71561B2D10032682D /* VoiceUtility */,
-				E90E5BD51561A786003C87E2 /* Voice */,
 				E93466B315614D5A001A9A2A /* AppDelegate.m */,
 				E93466B515614D5A001A9A2A /* MainStoryboard.storyboard */,
 				E93466B815614D5A001A9A2A /* ViewController.h */,
@@ -164,21 +124,6 @@
 				E93466B115614D5A001A9A2A /* CookerBDN-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E9776DC71561B2D10032682D /* VoiceUtility */ = {
-			isa = PBXGroup;
-			children = (
-				E9776DC81561B2D10032682D /* CADebugMacros.cpp */,
-				E9776DC91561B2D10032682D /* CADebugMacros.h */,
-				E9776DCA1561B2D10032682D /* CAMath.h */,
-				E9776DCB1561B2D10032682D /* CAStreamBasicDescription.cpp */,
-				E9776DCC1561B2D10032682D /* CAStreamBasicDescription.h */,
-				E9776DCD1561B2D10032682D /* CAXException.cpp */,
-				E9776DCE1561B2D10032682D /* CAXException.h */,
-			);
-			name = VoiceUtility;
-			path = iPublicUtility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,14 +195,6 @@
 				E93466B015614D5A001A9A2A /* main.m in Sources */,
 				E93466B415614D5A001A9A2A /* AppDelegate.m in Sources */,
 				E93466BA15614D5A001A9A2A /* ViewController.m in Sources */,
-				E90E5BC61561A6DF003C87E2 /* AQLevelMeter.mm in Sources */,
-				E90E5BC71561A6DF003C87E2 /* LevelMeter.m in Sources */,
-				E90E5BD01561A6F0003C87E2 /* AQPlayer.mm in Sources */,
-				E90E5BD11561A6F0003C87E2 /* AQRecorder.mm in Sources */,
-				E90E5BD21561A6F0003C87E2 /* MeterTable.cpp in Sources */,
-				E9776DCF1561B2D10032682D /* CADebugMacros.cpp in Sources */,
-				E9776DD01561B2D10032682D /* CAStreamBasicDescription.cpp in Sources */,
-				E9776DD11561B2D10032682D /* CAXException.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
